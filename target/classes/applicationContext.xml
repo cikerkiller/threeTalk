@@ -7,16 +7,12 @@
      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
-
-    <context:component-scan base-package="com.tt" annotation-config="true"/>
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd" >
 
     <!--<context:annotation-config/>-->
     <aop:aspectj-autoproxy/>
 
-
     <import resource="applicationContext-datasource.xml"/>
-    <import resource="applicationContext-websocket.xml"/>
 
 
 </beans>
