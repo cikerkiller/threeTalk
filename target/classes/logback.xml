@@ -10,12 +10,12 @@
         </filter>
     </appender>
 
-    <appender name="talk" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>d:/talklog/talk.log</File>
-       <!--  <File>/developer/apache-tomcat-7.0.73/logs/talk.log</File> -->
+    <appender name="tt" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>d:/ttlog/tt.log</File>
+       <!--  <File>/developer/apache-tomcat-7.0.73/logs/tt.log</File> -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!-- <fileNamePattern>/developer/apache-tomcat-7.0.73/logs/talk.log.%d{yyyy-MM-dd}.gz</fileNamePattern> -->
-            <fileNamePattern>d:/talklog/talk.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <!-- <fileNamePattern>/developer/apache-tomcat-7.0.73/logs/tt.log.%d{yyyy-MM-dd}.gz</fileNamePattern> -->
+            <fileNamePattern>d:/ttlog/tt.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <append>true</append>
             <maxHistory>10</maxHistory>
         </rollingPolicy>
@@ -26,11 +26,11 @@
 
 
     <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!--<File>d:/talklog/error.log</File>-->
-        <File>d:/talklog/error.log</File>
+        <!--<File>d:/ttlog/error.log</File>-->
+        <File>d:/ttlog/error.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
            <!--  <fileNamePattern>/devsoft/apache-tomcat-7.0.73/logs/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern> -->
-            <fileNamePattern>d:/talklog/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <fileNamePattern>d:/ttlog/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <append>true</append>
             <maxHistory>10</maxHistory>
         </rollingPolicy>
@@ -44,8 +44,8 @@
         </filter>
     </appender>
 
-    <logger name="com.talk" additivity="false" level="INFO" >
-        <appender-ref ref="talk" />
+    <logger name="com.tt" additivity="false" level="INFO" >
+        <appender-ref ref="tt" />
         <appender-ref ref="console"/>
     </logger>
 
@@ -53,7 +53,7 @@
 
     <!-- geelynote mybatis log 日志 -->
 
-    <logger name="com.talk.dao" level="DEBUG"/>
+    <logger name="com.tt.dao" level="DEBUG"/>
 
     <!--<logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="DEBUG" >-->
         <!--<appender-ref ref="console"/>-->
