@@ -29,10 +29,10 @@ public class UserController {
 	
 	@RequestMapping(value = "login.do",method = RequestMethod.POST)
 	@ResponseBody
-	public ServerResponse<User> login(HttpSession session,User user){
-		ServerResponse<User> response=iUserService.login(user);
+	public ServerResponse<User> login(HttpSession session,String username,String password){
+		ServerResponse<User> response=iUserService.login(username,password);
 		if(response.isSuccess()){
-			session.setAttribute(TalkConstant.CURRENT_USER, user);
+			session.setAttribute(TalkConstant.CURRENT_USER, response.getData());
 		}
 		return response;
 	}
