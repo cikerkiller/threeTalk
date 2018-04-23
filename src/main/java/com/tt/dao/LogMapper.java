@@ -3,13 +3,13 @@ package com.tt.dao;
 import com.tt.pojo.Log;
 
 public interface LogMapper {
-    int deleteByPrimaryKey(Integer logid);
+    int deleteByPrimaryKey(String id);
 
     int insert(Log record);
 
     int insertSelective(Log record);
 
-    Log selectByPrimaryKey(Integer logid);
+    Log selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(Log record);
 

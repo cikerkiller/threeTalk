@@ -13,7 +13,8 @@
 
 var wsServer = null;
 var ws = null;
-wsServer = "ws://" + location.host+"${pageContext.request.contextPath}" + "/chatServer";
+wsServer = "ws://" + location.host+"/simpleTalk" + "/talkServer/huangfei";
+/* wsServer = "ws://" + location.host+"${pageContext.request.contextPath}" + "/talkServer"; */
 ws = new WebSocket(wsServer); //创建WebSocket对象
 ws.onopen = function (evt) {
 	alert("已经建立连接");
@@ -68,7 +69,7 @@ function sendMessage(){
     ws.send(JSON.stringify({
         message : {
             content : message,
-            from : '${userid}',
+            from : '${currentUser.username}',
             to : to,      //接收人,如果没有则置空,如果有多个接收人则用,分隔
             time : new Date()
         },
@@ -111,7 +112,7 @@ function showOnline(list){
     $("#list").html("");    //清空在线列表
     $.each(list, function(index, item){     //添加私聊按钮
         var li = "<tr><td>"+item+"</td></tr>";
-        if('${userid}' != item){    //排除自己
+        if('${currentUser.username}' != item){    //排除自己
             li = "<tr><td>"+item+" <button type=\"button\" class=\"am-btn am-btn-xs am-btn-primary am-round\" onclick=\"addChat('"+item+"');\"><span class=\"am-icon-phone\"><span> 私聊</button></td></tr>";
         }
         $("#list").append(li);

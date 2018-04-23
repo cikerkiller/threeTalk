@@ -2,68 +2,54 @@ package com.tt.pojo;
 
 import java.util.Date;
 
-/**
- * 
- * @author ciker
- * @desc  系统日志类
- *
- */
 public class Log {
-    private Integer logid;
+    private String id;
 
-    private Integer userid;
+    private String username;
 
-    private Date time;
-
-    private String type;
+    private Integer type;
 
     private String detail;
 
-    private String ip;
+    private Date createTime;
 
-    public Log(Integer logid, Integer userid, Date time, String type, String detail, String ip) {
-        this.logid = logid;
-        this.userid = userid;
-        this.time = time;
+    private Date updateTime;
+
+    public Log(String id, String username, Integer type, String detail, Date createTime, Date updateTime) {
+        this.id = id;
+        this.username = username;
         this.type = type;
         this.detail = detail;
-        this.ip = ip;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
     }
 
     public Log() {
         super();
     }
 
-    public Integer getLogid() {
-        return logid;
+    public String getId() {
+        return id;
     }
 
-    public void setLogid(Integer logid) {
-        this.logid = logid;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
-    public Integer getUserid() {
-        return userid;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public String getDetail() {
@@ -74,11 +60,19 @@ public class Log {
         this.detail = detail == null ? null : detail.trim();
     }
 
-    public String getIp() {
-        return ip;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setIp(String ip) {
-        this.ip = ip == null ? null : ip.trim();
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 }
