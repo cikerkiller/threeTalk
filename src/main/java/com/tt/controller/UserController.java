@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
 import com.tt.common.ResponseCode;
 import com.tt.common.ServerResponse;
 import com.tt.common.TalkConstant;
@@ -53,7 +55,7 @@ public class UserController {
 		if (response.isSuccess()) {
 			User user = response.getData();
 			// 将用户名作为key存入httpSession，以便webSocketSession同步
-			 session.setAttribute("userid", user.getUsername());
+			 session.setAttribute(TalkConstant.CURRENT_USER, user);
 		}
 		return response;
 	}
@@ -85,4 +87,29 @@ public class UserController {
 	      return ServerResponse.createBySuccess();
 	}
 	
+	/**
+	 * 按条件查找
+	 * @param session
+	 * @param username
+	 * @param age
+	 * @param gender
+	 * @param address
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping(value = "search.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ServerResponse<PageInfo<User>> search(HttpSession session,@RequestParam(value="username",defaultValue="") String username,
+			@RequestParam(value="age",defaultValue="0") Integer age,
+			@RequestParam(value="gender",defaultValue="") Integer gender,
+			@RequestParam(value="address",defaultValue="") String address,
+			@RequestParam(value="pageNum",defaultValue="1") Integer pageNum,
+			@RequestParam(value="pageSize",defaultValue="10") Integer pageSize){
+		User user=(User)session.getAttribute(TalkConstant.CURRENT_USER);
+		if(user==null){
+			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+		}
+		return iUserService.search(username, age, gender, address,pageNum,pageSize);
+	}
 }

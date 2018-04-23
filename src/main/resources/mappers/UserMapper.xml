@@ -163,4 +163,28 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="checkUsername" parameterType="string" resultType="int">
+  	select count(1) from talk_user where username=#{username}
+  </select>
+  
+  <select id="selectByUsernameAndPassword" parameterType="map" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/> from  talk_user where username=#{username} and password=#{password}
+  </select>
+  
+  <select id="selectByAnyCondition" parameterType="map" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/> from  talk_user 
+  	<where>
+  		<if test="username!=null">
+  		username=#{username} and
+  		</if>
+  		<if test="gender!=null">
+  		gender=#{gender} and
+  		</if>
+  		<if test="age!=null">
+  		age >= #{age} and
+  		</if>
+  	</where>
+  </select>
+  
 </mapper>

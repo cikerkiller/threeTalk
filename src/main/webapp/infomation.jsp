@@ -13,7 +13,7 @@
 
 var wsServer = null;
 var ws = null;
-wsServer = "ws://" + location.host+"/simpleTalk" + "/talkServer/huangfei";
+wsServer = "ws://" + location.host+"${pageContext.request.contextPath}"+ "/talkServer";
 /* wsServer = "ws://" + location.host+"${pageContext.request.contextPath}" + "/talkServer"; */
 ws = new WebSocket(wsServer); //创建WebSocket对象
 ws.onopen = function (evt) {
