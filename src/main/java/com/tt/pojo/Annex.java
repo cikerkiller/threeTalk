@@ -1,7 +1,12 @@
 package com.tt.pojo;
 
 import java.util.Date;
-
+/**
+ * 
+ * @author ciker
+ * @desc   附件实体类
+ *
+ */
 public class Annex {
     private String id;
 

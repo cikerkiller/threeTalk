@@ -2,6 +2,12 @@ package com.tt.pojo;
 
 import java.util.Date;
 
+/**
+ * 
+ * @author ciker
+ * @desc  消息实体类 
+ *
+ */
 public class Message {
     private String id;
 

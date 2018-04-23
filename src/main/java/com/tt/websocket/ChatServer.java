@@ -1,25 +1,6 @@
 package com.tt.websocket;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.CopyOnWriteArraySet;
-
-import javax.servlet.http.HttpSession;
-import javax.websocket.EndpointConfig;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.tt.common.TalkConstant;
-import com.tt.pojo.User;
 
 /**
  * 
@@ -29,19 +10,20 @@ import com.tt.pojo.User;
  */
 @ServerEndpoint(value = "/talkServer", configurator = HttpSessionConfigurator.class)
 public class ChatServer {
-    private static int onlineCount = 0; //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
+   /* private static int onlineCount = 0; //静态变量，用来记录当前在线连接数。应该把它设计成线程安全的。
     private static CopyOnWriteArraySet<ChatServer> webSocketSet = new CopyOnWriteArraySet<ChatServer>();
     private Session session;    //与某个客户端的连接会话，需要通过它来给客户端发送数据
     private String username;      //用户名
     private HttpSession httpSession;    //request的session
 
-    private static List list = new ArrayList<>();   //在线列表,记录用户名称
-    private static Map routetab = new HashMap<>();  //用户名和websocket的session绑定的路由表
+    private static List<String> list = new ArrayList<>();   //在线列表,记录用户名称
+    
+    private static Map<String, Session> routetab = new HashMap<>();  //用户名和websocket的session绑定的路由表
 
-    /**
+    *//**
      * 连接建立成功调用的方法
      * @param session  可选的参数。session为与某个客户端的连接会话，需要通过它来给客户端发送数据
-     */
+     *//*
     @OnOpen
     public void onOpen(Session session, EndpointConfig config){
         this.session = session;
@@ -56,9 +38,9 @@ public class ChatServer {
         broadcast(message);     //广播
     }
 
-    /**
+    *//**
      * 连接关闭调用的方法
-     */
+     *//*
     @OnClose
     public void onClose(){
         webSocketSet.remove(this);  //从set中删除
@@ -69,10 +51,10 @@ public class ChatServer {
         broadcast(message);         //广播
     }
 
-    /**
+    *//**
      * 接收客户端的message,判断是否有接收人而选择进行广播还是指定发送
      * @param _message 客户端发送过来的消息
-     */
+     *//*
     @OnMessage
     public void onMessage(String _message) {
     	JSONObject chat = JSON.parseObject(_message);
@@ -90,19 +72,19 @@ public class ChatServer {
         }
     }
 
-    /**
+    *//**
      * 发生错误时调用
      * @param error
-     */
+     *//*
     @OnError
     public void onError(Throwable error){
         error.printStackTrace();
     }
 
-    /**
+    *//**
      * 广播消息
      * @param message
-     */
+     *//*
     public void broadcast(String message){
         for(ChatServer chat: webSocketSet){
             try {
@@ -114,11 +96,11 @@ public class ChatServer {
         }
     }
 
-    /**
+    *//**
      * 对特定用户发送消息
      * @param message
      * @param session
-     */
+     *//*
     public void singleSend(String message, Session session){
         try {
             session.getBasicRemote().sendText(message);
@@ -127,14 +109,14 @@ public class ChatServer {
         }
     }
 
-    /**
+    *//**
      * 组装返回给前台的消息
      * @param message   交互信息
      * @param type      信息类型
      * @param list      在线列表
      * @return
-     */
-    public String getMessage(String message, String type, List list){
+     *//*
+    public String getMessage(String message, String type, List<String> list){
         JSONObject member = new JSONObject();
         member.put("message", message);
         member.put("type", type);
@@ -146,11 +128,11 @@ public class ChatServer {
         return onlineCount;
     }
 
-    public  void addOnlineCount() {
+    public synchronized void addOnlineCount() {
         ChatServer.onlineCount++;
     }
 
-    public  void subOnlineCount() {
+    public synchronized void subOnlineCount() {
         ChatServer.onlineCount--;
-    }
+    }*/
 }

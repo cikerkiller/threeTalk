@@ -6,6 +6,7 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
 
 
 /**
@@ -14,7 +15,7 @@ import javax.websocket.Session;
  * @desc  聊天功能服务
  *
  */
-//@ServerEndpoint(value = "/talkServer", configurator = HttpSessionConfigurator.class)
+@ServerEndpoint(value = "/talkServer", configurator = HttpSessionConfigurator.class)
 public class TalkServer {
 	
 	

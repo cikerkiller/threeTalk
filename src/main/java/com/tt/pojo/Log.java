@@ -2,6 +2,12 @@ package com.tt.pojo;
 
 import java.util.Date;
 
+/**
+ * 
+ * @author ciker
+ * @desc   日志类
+ *
+ */
 public class Log {
     private String id;
 
