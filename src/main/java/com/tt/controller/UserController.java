@@ -34,7 +34,7 @@ public class UserController {
 	 * @param user
 	 * @return
 	 */
-	@RequestMapping(value = "register.do", method = RequestMethod.POST)
+	@RequestMapping(value = "register", method = RequestMethod.POST)
 	@ResponseBody
 	public ServerResponse<String> register(User user) {
 		return iUserService.register(user);
@@ -65,7 +65,7 @@ public class UserController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "get_userinfo.do", method = RequestMethod.GET)
+	@RequestMapping(value = "get_userinfo", method = RequestMethod.GET)
 	@ResponseBody
 	public ServerResponse<User> getUserInfo(HttpSession session) {
 		User user=(User)session.getAttribute(TalkConstant.CURRENT_USER);
@@ -80,7 +80,7 @@ public class UserController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping(value = "logout.do", method = RequestMethod.GET)
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	@ResponseBody
 	public ServerResponse<String> logout(HttpSession session) {
 		 session.removeAttribute(TalkConstant.CURRENT_USER);
@@ -98,9 +98,9 @@ public class UserController {
 	 * @param pageSize
 	 * @return
 	 */
-	@RequestMapping(value = "search_condition.do", method = RequestMethod.POST)
+	@RequestMapping(value = "search_condition", method = RequestMethod.POST)
 	@ResponseBody
-	public ServerResponse<PageInfo<User>> search(HttpSession session,@RequestParam(value="username",defaultValue="") String username,
+	public ServerResponse<PageInfo<User>> search(HttpSession session,
 			@RequestParam(value="age",defaultValue="0") Integer age,
 			@RequestParam(value="gender",defaultValue="") Integer gender,
 			@RequestParam(value="address",defaultValue="") String address,
@@ -110,6 +110,46 @@ public class UserController {
 		if(user==null){
 			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
 		}
-		return iUserService.search(username, age, gender, address,pageNum,pageSize);
+		return iUserService.search( age, gender, address,pageNum,pageSize);
 	}
+	
+	/**
+	 * 根据输入的用户名模糊查询
+	 * @param session
+	 * @param username
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping(value = "search", method = RequestMethod.POST)
+	@ResponseBody
+	public ServerResponse<PageInfo<User>> search(HttpSession session,
+			@RequestParam(value="username",defaultValue="") String username,
+			@RequestParam(value="pageNum",defaultValue="1") Integer pageNum,
+			@RequestParam(value="pageSize",defaultValue="10") Integer pageSize){
+		User user=(User)session.getAttribute(TalkConstant.CURRENT_USER);
+		if(user==null){
+			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+		}
+		return iUserService.search(username,pageNum,pageSize);
+	}
+	
+	/**
+	 * 修改信息
+	 * @param session
+	 * @param userinfo
+	 * @return
+	 */
+	@RequestMapping(value = "update", method = RequestMethod.POST)
+	@ResponseBody
+	public ServerResponse<String> updateNickName(HttpSession session,User userinfo){
+		User user=(User)session.getAttribute(TalkConstant.CURRENT_USER);
+		if(user==null){
+			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+		}
+		return iUserService.update(userinfo);
+	}
+	
+	
+	
 }
