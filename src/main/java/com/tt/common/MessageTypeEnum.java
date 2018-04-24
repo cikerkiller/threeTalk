@@ -7,6 +7,7 @@ package com.tt.common;
  *
  */
 public enum MessageTypeEnum {
+	
 	message(1,"会话"),
 	
 	notice(0,"消息");

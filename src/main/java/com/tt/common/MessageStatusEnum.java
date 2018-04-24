@@ -1,26 +1,16 @@
 package com.tt.common;
 
-/**
- * 
- * @author ciker
- * @desc 操作类型枚举  
- *
- */
-public enum OperationEnum {
+public enum MessageStatusEnum {
 	
-	login(1,"登录"),
+	unread(0,"未读"),
 	
-	update(2,"更新"),
-	
-	logout(3,"退出"),
-	
-	exception(4,"异常");
+	readed(1,"已读");
 	
 	private int code;
 	
 	private String desc;
 	
-	private OperationEnum(int code, String desc) {
+	private MessageStatusEnum(int code, String desc) {
 		this.code = code;
 		this.desc = desc;
 	}

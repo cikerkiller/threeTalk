@@ -1,26 +1,18 @@
 package com.tt.common;
 
-/**
- * 
- * @author ciker
- * @desc 操作类型枚举  
- *
- */
-public enum OperationEnum {
+public enum FriendStatusEnum {
 	
-	login(1,"登录"),
+	delete(-1,"删除"),
 	
-	update(2,"更新"),
+	back(0,"拉黑"),
 	
-	logout(3,"退出"),
-	
-	exception(4,"异常");
+	white(1,"好友");
 	
 	private int code;
 	
 	private String desc;
 	
-	private OperationEnum(int code, String desc) {
+	private FriendStatusEnum(int code, String desc) {
 		this.code = code;
 		this.desc = desc;
 	}
@@ -36,5 +28,4 @@ public enum OperationEnum {
 	public void setDesc(String desc) {
 		this.desc = desc;
 	}
-	
 }
