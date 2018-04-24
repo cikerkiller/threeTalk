@@ -98,7 +98,7 @@ public class UserController {
 	 * @param pageSize
 	 * @return
 	 */
-	@RequestMapping(value = "search.do", method = RequestMethod.POST)
+	@RequestMapping(value = "search_condition.do", method = RequestMethod.POST)
 	@ResponseBody
 	public ServerResponse<PageInfo<User>> search(HttpSession session,@RequestParam(value="username",defaultValue="") String username,
 			@RequestParam(value="age",defaultValue="0") Integer age,
