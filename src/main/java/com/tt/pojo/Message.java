@@ -2,12 +2,6 @@ package com.tt.pojo;
 
 import java.util.Date;
 
-/**
- * 
- * @author ciker
- * @desc  消息实体类 
- *
- */
 public class Message {
     private String id;
 
@@ -19,16 +13,19 @@ public class Message {
 
     private Integer type;
 
+    private Integer status;
+
     private Date createTime;
 
     private Date updateTime;
 
-    public Message(String id, String senderId, String receiverId, String content, Integer type, Date createTime, Date updateTime) {
+    public Message(String id, String senderId, String receiverId, String content, Integer type, Integer status, Date createTime, Date updateTime) {
         this.id = id;
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.content = content;
         this.type = type;
+        this.status = status;
         this.createTime = createTime;
         this.updateTime = updateTime;
     }
@@ -75,6 +72,14 @@ public class Message {
 
     public void setType(Integer type) {
         this.type = type;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {

@@ -10,5 +10,15 @@ public interface IUserService {
 
     ServerResponse<String> register(User user);
     
-    ServerResponse<PageInfo<User>> search(String username,Integer age,Integer gender,String address,Integer pageNum, Integer pageSize);
+    ServerResponse<PageInfo<User>> search(Integer age,Integer gender,String address,Integer pageNum, Integer pageSize);
+    
+    ServerResponse<PageInfo<User>> search(String username,Integer pageNum, Integer pageSize);
+    
+    ServerResponse<String> updateNickName(String nickName);
+    
+    ServerResponse<String> update(User user);
+    
+    ServerResponse<Integer> totalOnlineCount();
+    
+    ServerResponse<String> updateLoginStatus(Integer status,String userId);
 }

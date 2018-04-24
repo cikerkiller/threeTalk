@@ -54,12 +54,56 @@ public class UserServiceImpl implements IUserService{
 	}
 
 	@Override
-	public ServerResponse<PageInfo<User>> search(String username, Integer age, Integer gender,
+	public ServerResponse<PageInfo<User>> search(Integer age, Integer gender,
 			String address,Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
-		List<User> list=userMapper.selectByAnyCondition(username, age, gender, address);
+		List<User> list=userMapper.selectByAnyCondition(age, gender, address);
 		PageInfo<User> pageInfo=new PageInfo<>(list);
 		return ServerResponse.createBySuccess(pageInfo);
+	}
+
+	@Override
+	public ServerResponse<PageInfo<User>> search(String username,Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<User> list=userMapper.selectUserByUsername(username);
+		PageInfo<User> pageInfo=new PageInfo<>(list);
+		return ServerResponse.createBySuccess(pageInfo);
+		
+	}
+
+	@Override
+	public ServerResponse<String> updateNickName(String nickName) {
+		User user=new User();
+		user.setNickName(nickName);
+		int resultCount=userMapper.updateByPrimaryKeySelective(user);
+		if(resultCount > 0){
+			return ServerResponse.createBySuccessMessage("修改昵称成功");
+		}
+		return ServerResponse.createByErrorMessage("修改昵称失败");
+	}
+
+	@Override
+	public ServerResponse<String> update(User user) {
+		user.setPassword(null);
+		user.setUsername(null);
+		user.setStatus(null);
+		int resultCount=userMapper.updateByPrimaryKeySelective(user);
+		if(resultCount > 0){
+			return ServerResponse.createBySuccessMessage("修改信息成功");
+		}
+		return ServerResponse.createByErrorMessage("修改信息失败");
+	}
+
+	@Override
+	public ServerResponse<Integer> totalOnlineCount() {
+		int total=userMapper.getTotalOnlineCount();
+		return ServerResponse.createBySuccess(total);
+	}
+
+	@Override
+	public ServerResponse<String> updateLoginStatus(Integer status,String userId) {
+		userMapper.updateLoginStatus(status,userId);
+		return null;
 	}
 	
 }

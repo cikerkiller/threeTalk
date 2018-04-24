@@ -1,12 +1,7 @@
 package com.tt.pojo;
 
 import java.util.Date;
-/**
- * 
- * @author ciker
- * @desc  朋友类 
- *
- */
+
 public class Friends {
     private String id;
 
@@ -14,16 +9,19 @@ public class Friends {
 
     private String friendId;
 
+    private Integer status;
+
     private String friendNote;
 
     private Date createTime;
 
     private Date updateTime;
 
-    public Friends(String id, String userId, String friendId, String friendNote, Date createTime, Date updateTime) {
+    public Friends(String id, String userId, String friendId, Integer status, String friendNote, Date createTime, Date updateTime) {
         this.id = id;
         this.userId = userId;
         this.friendId = friendId;
+        this.status = status;
         this.friendNote = friendNote;
         this.createTime = createTime;
         this.updateTime = updateTime;
@@ -55,6 +53,14 @@ public class Friends {
 
     public void setFriendId(String friendId) {
         this.friendId = friendId == null ? null : friendId.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public String getFriendNote() {
