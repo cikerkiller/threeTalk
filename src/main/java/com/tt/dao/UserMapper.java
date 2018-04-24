@@ -23,5 +23,10 @@ public interface UserMapper {
     
     User selectByUsernameAndPassword(@Param("username") String username,@Param("password") String password);
     
-    List<User> selectByAnyCondition(@Param("username") String username,@Param("age") Integer age,@Param("gender") Integer gender,@Param("address") String address);
+    List<User> selectByAnyCondition(@Param("username") String username,
+    											@Param("age") Integer age,
+    													@Param("gender") Integer gender,
+    															@Param("address") String address);
+    
+    
 }

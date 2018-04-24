@@ -2,6 +2,12 @@ package com.tt.pojo;
 
 import java.util.Date;
 
+/**
+ * 
+ * @author ciker
+ * @desc   用户类
+ *
+ */
 public class User {
     private String id;
 
@@ -9,7 +15,9 @@ public class User {
 
     private String password;
 
-    private String gender;
+    private String nickName;
+
+    private Integer gender;
 
     private String mobile;
 
@@ -19,21 +27,25 @@ public class User {
 
     private String address;
 
+    private Integer status;
+
     private Date createTime;
 
     private Date lastLoginTime;
 
     private Date updateTime;
 
-    public User(String id, String username, String password, String gender, String mobile, String email, Integer age, String address, Date createTime, Date lastLoginTime, Date updateTime) {
+    public User(String id, String username, String password, String nickName, Integer gender, String mobile, String email, Integer age, String address, Integer status, Date createTime, Date lastLoginTime, Date updateTime) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.nickName = nickName;
         this.gender = gender;
         this.mobile = mobile;
         this.email = email;
         this.age = age;
         this.address = address;
+        this.status = status;
         this.createTime = createTime;
         this.lastLoginTime = lastLoginTime;
         this.updateTime = updateTime;
@@ -67,12 +79,20 @@ public class User {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getGender() {
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName == null ? null : nickName.trim();
+    }
+
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender == null ? null : gender.trim();
+    public void setGender(Integer gender) {
+        this.gender = gender;
     }
 
     public String getMobile() {
@@ -105,6 +125,14 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Date getCreateTime() {
