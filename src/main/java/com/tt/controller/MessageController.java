@@ -1,9 +1,11 @@
 package com.tt.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 
-import com.tt.pojo.Shout;  
+import com.tt.pojo.Message;
+import com.tt.service.IUserService;
   
 /**
  * 
@@ -14,9 +16,14 @@ import com.tt.pojo.Shout;
 @Controller  
 public class MessageController {  
 	
+	@Autowired
+	private IUserService iUserService;
+	
 	@MessageMapping("/marco")
-    public void handleShout(Shout shout) {
-	   System.out.println("this is a shout");
+    public void handleShout(Message message) {
+	   System.out.println("this is a message"+message);
+	  System.out.println(iUserService.search("hf", 1, 10).getData().getList().get(0).toString());
     }
-      
+    
+	
 }  

@@ -1,5 +1,6 @@
 package com.tt.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,8 +9,13 @@ import java.util.Date;
  * @desc   用户类
  *
  */
-public class User {
-    private String id;
+public class User implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String id;
 
     private String username;
 
@@ -158,4 +164,16 @@ public class User {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password="
+				+ password + ", nickName=" + nickName + ", gender=" + gender
+				+ ", mobile=" + mobile + ", email=" + email + ", age=" + age
+				+ ", address=" + address + ", status=" + status
+				+ ", createTime=" + createTime + ", lastLoginTime="
+				+ lastLoginTime + ", updateTime=" + updateTime + "]";
+	}
+    
+    
 }
