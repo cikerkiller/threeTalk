@@ -32,7 +32,7 @@
       create_time, update_time)
     values (#{id,jdbcType=VARCHAR}, #{senderId,jdbcType=VARCHAR}, #{receiverId,jdbcType=VARCHAR}, 
       #{content,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      now(),  now())
   </insert>
   <insert id="insertSelective" parameterType="com.tt.pojo.Message" >
     insert into talk_message
@@ -127,4 +127,15 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  
+  <select id="listMessage" parameterType="map" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/> from talk_message
+    where sender_id=#{senderId} and receiver_id=#{receiverId}
+  </select>
+  
+  <update id="updateMessageStatus" parameterType="map">
+  	update talk_message
+    set status = #{status} where  id = #{id,jdbcType=VARCHAR}
+  </update>
+  
 </mapper>

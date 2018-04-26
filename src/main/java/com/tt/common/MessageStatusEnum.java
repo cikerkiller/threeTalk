@@ -2,9 +2,15 @@ package com.tt.common;
 
 public enum MessageStatusEnum {
 	
+	undo(-1,"撤销"),
+	
 	unread(0,"未读"),
 	
-	readed(1,"已读");
+	readed(1,"已读"),
+
+	success(2,"发送成功"),
+	
+	error(3,"发送失败");
 	
 	private int code;
 	

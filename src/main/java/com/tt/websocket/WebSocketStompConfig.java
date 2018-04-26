@@ -30,9 +30,12 @@ public class WebSocketStompConfig extends AbstractWebSocketMessageBrokerConfigur
 
 	@Override
 	public void configureMessageBroker(MessageBrokerRegistry messagebrokerregistry) {
-		/*messagebrokerregistry.enableSimpleBroker("/queue","/topic");
-		*/
-		messagebrokerregistry.setApplicationDestinationPrefixes("/user");
+		//使能够在topic和user两个域上向客户端发送消息
+		messagebrokerregistry.enableSimpleBroker("/topic","/user");  
+		//这句表示客户端向服务端发送时的主题上面需要加"/app"作为前缀； 
+		messagebrokerregistry.setApplicationDestinationPrefixes("/app"); 
+		//这句表示给指定用户发送（一对一）的主题前缀是“/user/”;  
+		messagebrokerregistry.setUserDestinationPrefix("/user/");  
 	}
 
 }

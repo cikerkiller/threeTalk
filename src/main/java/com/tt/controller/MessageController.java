@@ -2,10 +2,19 @@ package com.tt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageInfo;
+import com.tt.common.MessageStatusEnum;
+import com.tt.common.ServerResponse;
 import com.tt.pojo.Message;
+import com.tt.service.IMessageService;
 import com.tt.service.IUserService;
+import com.tt.vo.MessageVo;
   
 /**
  * 
@@ -13,17 +22,70 @@ import com.tt.service.IUserService;
  * @desc  消息控制器 
  *
  */
-@Controller  
+@Controller("/message") 
 public class MessageController {  
 	
 	@Autowired
 	private IUserService iUserService;
 	
-	@MessageMapping("/marco")
-    public void handleShout(Message message) {
-	   System.out.println("this is a message"+message);
-	  System.out.println(iUserService.search("hf", 1, 10).getData().getList().get(0).toString());
-    }
+	@Autowired
+	private IMessageService iMessageService;
+	
+	@Autowired
+	private SimpMessagingTemplate simpMessagingTemplate;
     
+	/**
+	 * 单对单发送消息
+	 * @param message
+	 * @throws Exception
+	 */
+	@MessageMapping("/simple_send")  
+    public void sendSimpleMessage(MessageVo message) throws Exception { 
+		String receiverId=message.getReceiverId();
+		String senderId=message.getSenderId();
+		ServerResponse<String> response= iMessageService.insertMessage(message);
+		if(response.isSuccess()){
+			message.setMessageId(response.getData());
+			simpMessagingTemplate.convertAndSendToUser(receiverId,"/simple_send", message);
+			simpMessagingTemplate.convertAndSendToUser(senderId,"/simple_send", MessageStatusEnum.success.getCode());
+		}else{
+			simpMessagingTemplate.convertAndSendToUser(senderId,"/message/simple_send", MessageStatusEnum.error.getCode());
+		}
+    }
+	
+	/**
+	 * 撤回消息
+	 * @param messageId
+	 * @return
+	 */
+	@RequestMapping("/delete")
+	@ResponseBody
+	public ServerResponse<String> deleteMessage(MessageVo message){
+		return iMessageService.deleteMessage(message.getMessageId());
+	}
+	
+	@RequestMapping("/read_message")
+	@ResponseBody
+	public ServerResponse<String> readMessage(MessageVo message){
+		//接收者是自己，即当自己去点击有未读消息用户图标时，会调用这个接口
+		return iMessageService.readMessage(message.getReceiverId(),message.getSenderId());
+	}
+	
+	/**
+	 * 消息列表
+	 * @param message
+	 * @param pageNum
+	 * @param pageSize
+	 * @return
+	 */
+	@RequestMapping("/list")
+	@ResponseBody
+	public ServerResponse<PageInfo<Message>> listMessage(MessageVo message,
+			@RequestParam(value="pageNum",defaultValue="1") Integer pageNum,
+			@RequestParam(value="pageSize",defaultValue="10") Integer pageSize){
+		return iMessageService.listMessage(message.getSenderId(),message.getReceiverId(),pageNum,pageSize);
+	}
+	
+	
 	
 }  

@@ -13,14 +13,34 @@
 </head>
 <body>
  <script type="text/javascript">
+ 
+ 	var Message={
+ 			senderId 	:	'hf',
+
+ 		   	receiverId 	: 	'4214124',
+
+ 		    content 	: 	'efrgdfgsgf',
+
+ 		    type 		: 	'1'	
+ 	}
+ 
+ var userId="hf";
+ 
  	var url='http://'+window.location.host+'/threeTalk/marcopilo';
  	var sock=new SockJS(url);
  	var stomp =Stomp.over(sock);
- 	var payload=JSON.stringify({
- 		'message':'Marco!'
- 	});
- 	stomp.connect('hf','123',function(e){
- 		stomp.send('/app/marco',{},payload);
+ 	var payload=JSON.stringify(Message);
+ 	stomp.connect({},function(frame){
+ 		/* stomp.send('/app/hello',{},payload);
+ 		stomp.subscribe('/topic/hello', function(message){  
+ 	        var json = JSON.stringify(message);
+ 	        alert("json"+json);
+ 	    });   */
+ 		stomp.send('/app/simple_send',{},payload);
+ 		stomp.subscribe('/user/' + Message.senderId + '/simple_send', function(message){  
+ 			var messageEntity = JSON.stringify(message);
+ 	        alert("messageEntity"+message.body);
+ 	    });  
  	});
  </script>
 </body>

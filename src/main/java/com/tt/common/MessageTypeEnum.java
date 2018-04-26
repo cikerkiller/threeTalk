@@ -8,9 +8,11 @@ package com.tt.common;
  */
 public enum MessageTypeEnum {
 	
-	message(1,"会话"),
+	text(0,"文字"),
 	
-	notice(0,"消息");
+	image(1,"图片"),
+	
+	file(2,"文件");
 	
 	private int code;
 	
