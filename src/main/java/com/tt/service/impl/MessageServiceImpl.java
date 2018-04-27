@@ -66,7 +66,7 @@ public class MessageServiceImpl implements IMessageService {
 
 	@Override
 	public ServerResponse<String> readMessage(String receiverId,String senderId) {
-		int resultCode=messageMapper.updateMessageStatus(MessageStatusEnum.readed.getCode(), "","");
+		int resultCode=messageMapper.updateMessageStatus(MessageStatusEnum.readed.getCode(), senderId,receiverId);
 		if(resultCode>0){
 			return ServerResponse.createBySuccess();
 		}
