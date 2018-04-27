@@ -135,7 +135,12 @@
   
   <update id="updateMessageStatus" parameterType="map">
   	update talk_message
-    set status = #{status} where  id = #{id,jdbcType=VARCHAR}
+    set status = #{status} where  sender_id=#{senderId} and receiver_id=#{receiverId}
+  </update>
+  
+  <update id="deleteMessage" parameterType="map">
+  	update talk_message
+    set status = #{status} where  sender_id=#{senderId} and id = #{messageId}
   </update>
   
 </mapper>

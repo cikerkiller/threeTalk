@@ -48,8 +48,8 @@ public class MessageServiceImpl implements IMessageService {
 	}
 
 	@Override
-	public ServerResponse<String> deleteMessage(String messageId) {
-		int resultCode=messageMapper.updateMessageStatus(MessageStatusEnum.undo.getCode(), messageId);
+	public ServerResponse<String> deleteMessage(String messageId,String senderId) {
+		int resultCode=messageMapper.deleteMessage(MessageStatusEnum.undo.getCode(), messageId,senderId);
 		if(resultCode>0){
 			return ServerResponse.createBySuccess();
 		}
@@ -66,7 +66,7 @@ public class MessageServiceImpl implements IMessageService {
 
 	@Override
 	public ServerResponse<String> readMessage(String receiverId,String senderId) {
-		int resultCode=messageMapper.updateMessageStatus(MessageStatusEnum.readed.getCode(), "");
+		int resultCode=messageMapper.updateMessageStatus(MessageStatusEnum.readed.getCode(), "","");
 		if(resultCode>0){
 			return ServerResponse.createBySuccess();
 		}

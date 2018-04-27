@@ -61,7 +61,7 @@ public class MessageController {
 	@RequestMapping("/delete")
 	@ResponseBody
 	public ServerResponse<String> deleteMessage(MessageVo message){
-		return iMessageService.deleteMessage(message.getMessageId());
+		return iMessageService.deleteMessage(message.getMessageId(),message.getSenderId());
 	}
 	
 	@RequestMapping("/read_message")

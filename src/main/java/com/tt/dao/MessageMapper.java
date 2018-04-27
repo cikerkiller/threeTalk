@@ -21,5 +21,7 @@ public interface MessageMapper {
     
     List<Message> listMessage(@Param("senderId") String senderId,@Param("receiverId") String receiverId);
     
-    int updateMessageStatus(Integer status,String id);
+    int updateMessageStatus(@Param("status") Integer status,@Param("senderId") String senderId,@Param("receiverId") String receiverId);
+    
+    int deleteMessage(@Param("status") Integer status,@Param("messageId") String messageId,@Param("senderId") String senderId);
 }
