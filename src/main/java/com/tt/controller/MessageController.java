@@ -1,6 +1,7 @@
 package com.tt.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageInfo;
 import com.tt.common.MessageStatusEnum;
@@ -21,6 +23,7 @@ import com.tt.common.TalkConstant;
 import com.tt.pojo.Message;
 import com.tt.pojo.SpecialResult;
 import com.tt.pojo.User;
+import com.tt.service.IFileService;
 import com.tt.service.IMessageService;
 import com.tt.service.IUserService;
 import com.tt.vo.MessageVo;
@@ -37,6 +40,9 @@ public class MessageController {
 	
 	@Autowired
 	private IUserService iUserService;
+	
+	@Autowired
+	private IFileService iFileService;
 	
 	@Autowired
 	private IMessageService iMessageService;
@@ -105,6 +111,16 @@ public class MessageController {
 			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
 		}
 		return iMessageService.unreadListMessage(user.getId());
+	}
+	
+	@RequestMapping("/upload_file")
+	@ResponseBody
+	public ServerResponse<Map<String, String>> uploadFile(HttpSession session,MultipartFile multipartFile){
+		User user=(User)session.getAttribute(TalkConstant.CURRENT_USER);
+		if(user==null){
+			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+		}
+		return iFileService.uploadFile(user.getId(),multipartFile);
 	}
 	
 	
