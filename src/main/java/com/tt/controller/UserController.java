@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageInfo;
 import com.tt.common.ResponseCode;
 import com.tt.common.ServerResponse;
+import com.tt.common.TalkCache;
 import com.tt.common.TalkConstant;
 import com.tt.pojo.User;
 import com.tt.service.IUserService;
@@ -54,6 +55,7 @@ public class UserController {
 		ServerResponse<User> response = iUserService.login(username, password);
 		if (response.isSuccess()) {
 			User user = response.getData();
+			TalkCache.userSession.put(user.getUsername(), user);
 			// 将用户名作为key存入httpSession，以便webSocketSession同步
 			 session.setAttribute(TalkConstant.CURRENT_USER, user);
 		}
@@ -83,8 +85,12 @@ public class UserController {
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	@ResponseBody
 	public ServerResponse<String> logout(HttpSession session) {
-		 session.removeAttribute(TalkConstant.CURRENT_USER);
-	      return ServerResponse.createBySuccess();
+		User user=(User)session.getAttribute(TalkConstant.CURRENT_USER);
+		if(user!=null){
+			session.removeAttribute(TalkConstant.CURRENT_USER);
+			TalkCache.userSession.remove(user.getUsername());
+		}
+	    return ServerResponse.createBySuccess();
 	}
 	
 	/**

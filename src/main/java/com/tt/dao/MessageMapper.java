@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.tt.pojo.Message;
+import com.tt.pojo.SpecialResult;
 
 public interface MessageMapper {
     int deleteByPrimaryKey(String id);
@@ -20,6 +21,8 @@ public interface MessageMapper {
     int updateByPrimaryKey(Message record);
     
     List<Message> listMessage(@Param("senderId") String senderId,@Param("receiverId") String receiverId);
+    
+    List<SpecialResult> unreadListMessage(@Param("receiverId") String receiverId);
     
     int updateMessageStatus(@Param("status") Integer status,@Param("senderId") String senderId,@Param("receiverId") String receiverId);
     

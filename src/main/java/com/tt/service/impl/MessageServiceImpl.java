@@ -12,6 +12,7 @@ import com.tt.common.MessageStatusEnum;
 import com.tt.common.ServerResponse;
 import com.tt.dao.MessageMapper;
 import com.tt.pojo.Message;
+import com.tt.pojo.SpecialResult;
 import com.tt.service.IMessageService;
 import com.tt.vo.MessageVo;
 
@@ -71,5 +72,11 @@ public class MessageServiceImpl implements IMessageService {
 			return ServerResponse.createBySuccess();
 		}
 		return ServerResponse.createByError();
+	}
+
+	@Override
+	public ServerResponse<List<SpecialResult>> unreadListMessage(String receiverId) {
+		List<SpecialResult> messages=messageMapper.unreadListMessage(receiverId);
+		return ServerResponse.createBySuccess(messages);
 	}
 }

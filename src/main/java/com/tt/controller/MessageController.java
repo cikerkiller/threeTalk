@@ -1,17 +1,26 @@
 package com.tt.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.tt.common.MessageStatusEnum;
+import com.tt.common.ResponseCode;
 import com.tt.common.ServerResponse;
+import com.tt.common.TalkConstant;
 import com.tt.pojo.Message;
+import com.tt.pojo.SpecialResult;
+import com.tt.pojo.User;
 import com.tt.service.IMessageService;
 import com.tt.service.IUserService;
 import com.tt.vo.MessageVo;
@@ -22,7 +31,8 @@ import com.tt.vo.MessageVo;
  * @desc  消息控制器 
  *
  */
-@Controller("/message") 
+@Controller
+@RequestMapping("/message/")
 public class MessageController {  
 	
 	@Autowired
@@ -58,7 +68,7 @@ public class MessageController {
 	 * @param messageId
 	 * @return
 	 */
-	@RequestMapping("/delete")
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
 	@ResponseBody
 	public ServerResponse<String> deleteMessage(MessageVo message){
 		return iMessageService.deleteMessage(message.getMessageId(),message.getSenderId());
@@ -84,6 +94,17 @@ public class MessageController {
 			@RequestParam(value="pageNum",defaultValue="1") Integer pageNum,
 			@RequestParam(value="pageSize",defaultValue="10") Integer pageSize){
 		return iMessageService.listMessage(message.getSenderId(),message.getReceiverId(),pageNum,pageSize);
+	}
+	
+	
+	@RequestMapping("/unread_list")
+	@ResponseBody
+	public ServerResponse<List<SpecialResult>> unreadListMessage(HttpSession session){
+		User user=(User)session.getAttribute(TalkConstant.CURRENT_USER);
+		if(user==null){
+			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+		}
+		return iMessageService.unreadListMessage(user.getId());
 	}
 	
 	
