@@ -14,5 +14,6 @@ public interface IFriendsService {
 	ServerResponse<String> delete(String userId,String friendId);
 	ServerResponse<User> queryFriendDetail(String friendId);
 	ServerResponse<List<Friends>> list(String userId);
+	
 
 }

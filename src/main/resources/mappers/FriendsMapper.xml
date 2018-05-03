@@ -121,7 +121,7 @@
   	 select 
     <include refid="Base_Column_List" />
     from talk_friends
-    where  user_id = #{userId,jdbcType=VARCHAR}
+    where  status=1 and user_id = #{userId,jdbcType=VARCHAR}
   </select>
   <select id="selectFriendsByUserIdAndFriendsId" parameterType="map" resultMap="BaseResultMap">
   	 select 

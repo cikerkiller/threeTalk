@@ -75,6 +75,7 @@ public class FTPUtil {
 	        if(connectFtp(this.ip,this.port,this.username,this.password)){
 	            try {
 	                ftpClient.changeWorkingDirectory(remotePath);
+	                ftpClient.mkd(remotePath);
 	                ftpClient.setBufferSize(1024);
 	                ftpClient.setControlEncoding("UTF-8");
 	                ftpClient.setFileType(FTPClient.BINARY_FILE_TYPE);

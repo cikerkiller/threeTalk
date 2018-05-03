@@ -20,10 +20,12 @@ import com.tt.common.MessageStatusEnum;
 import com.tt.common.ResponseCode;
 import com.tt.common.ServerResponse;
 import com.tt.common.TalkConstant;
+import com.tt.pojo.Friends;
 import com.tt.pojo.Message;
 import com.tt.pojo.SpecialResult;
 import com.tt.pojo.User;
 import com.tt.service.IFileService;
+import com.tt.service.IFriendsService;
 import com.tt.service.IMessageService;
 import com.tt.service.IUserService;
 import com.tt.vo.MessageVo;
@@ -43,6 +45,9 @@ public class MessageController {
 	
 	@Autowired
 	private IFileService iFileService;
+	
+	@Autowired
+	private IFriendsService iFriendsService;
 	
 	@Autowired
 	private IMessageService iMessageService;
@@ -68,6 +73,19 @@ public class MessageController {
 			simpMessagingTemplate.convertAndSendToUser(senderId,"/message/simple_send", MessageStatusEnum.error.getCode());
 		}
     }
+	
+	@MessageMapping("/back_server")  
+	public void server(MessageVo message) throws Exception { 
+		String senderId=message.getSenderId();
+		ServerResponse<List<Friends>> response=iFriendsService.list(senderId);
+		if(response.isSuccess()){
+			List<Friends> friends=response.getData();
+			for(Friends friend:friends){
+				simpMessagingTemplate.convertAndSendToUser(friend.getFriendId(),"/simple_send", "你的好友"+friend.getFriendId()+"上线");
+				
+			}
+		}
+	}
 	
 	/**
 	 * 撤回消息
