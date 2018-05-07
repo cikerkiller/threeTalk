@@ -14,20 +14,6 @@
    		 <context:exclude-filter type="annotation"
 			expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
-<!-- 	<mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/"/>
-            不进行拦截
-        	<mvc:exclude-mapping path="/index.jsp"/>
-            <bean class="com.tt.interceptor.LoginCheckedInterceptor" >
-                <property name="sendRedirect">
-                    <list>
-                        <value>.do</value>
-                    </list>
-                </property>
-            </bean>
-        </mvc:interceptor>
-    </mvc:interceptors> -->
     <mvc:annotation-driven >
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
@@ -44,18 +30,10 @@
                         <value>application/json;charset=UTF-8</value>
                     </list>
                 </property>
-               <!--  <property name="objectMapper">    
-		            <bean class="com.fasterxml.jackson.databind.ObjectMapper">    
-		                <property name="serializationInclusion">    
-		                    <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>    
-		                    <value type="com.fasterxml.jackson.annotation.JsonInclude.Include">NON_NULL</value>    
-		                </property>    
-		            </bean>    
-        		</property>   -->  
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
-
+	<mvc:resources location="/static/" mapping="/static/**"/>
 
     <!-- 文件上传 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

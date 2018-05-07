@@ -62,6 +62,16 @@ public class UserController {
 		return response;
 	}
 	
+	@RequestMapping(value = "login_status.do", method = RequestMethod.GET)
+	@ResponseBody
+	public ServerResponse<String> checkLoginStatus(HttpSession session) {
+		User user=(User)session.getAttribute(TalkConstant.CURRENT_USER);
+		if(user==null){
+			return ServerResponse.createByError();
+		}
+		return ServerResponse.createBySuccess();
+	}
+	
 	/**
 	 * 获取用户信息
 	 * @param session

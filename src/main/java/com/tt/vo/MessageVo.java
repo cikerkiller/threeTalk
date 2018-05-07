@@ -15,7 +15,7 @@ public class MessageVo implements Serializable{
 	//接收者
 	private String receiverId;
 	//内容
-	private Object content;
+	private String content;
 	//内容类型
 	private Integer type;
 	
@@ -37,10 +37,10 @@ public class MessageVo implements Serializable{
 	public void setReceiverId(String receiverId) {
 		this.receiverId = receiverId;
 	}
-	public Object getContent() {
+	public String getContent() {
 		return content;
 	}
-	public void setContent(Object content) {
+	public void setContent(String content) {
 		this.content = content;
 	}
 	public Integer getType() {
