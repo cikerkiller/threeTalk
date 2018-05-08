@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tt.common.ServerResponse;
+import com.tt.common.UserStatusEnum;
 import com.tt.dao.UserMapper;
 import com.tt.pojo.User;
 import com.tt.service.IUserService;
@@ -46,6 +47,11 @@ public class UserServiceImpl implements IUserService{
 		}
 		user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
 		user.setId(UUID.randomUUID().toString());
+		//刚注册是离线状态
+		user.setStatus(UserStatusEnum.offline.getCode());
+		if(StringUtils.isBlank(user.getNickName())){
+			user.setNickName(user.getUsername()+Math.random());
+		}
 		int resultCode=userMapper.insert(user);
 		if(resultCode==0){
 			 return ServerResponse.createByErrorMessage("注册失败");
