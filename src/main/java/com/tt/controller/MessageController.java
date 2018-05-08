@@ -67,12 +67,13 @@ public class MessageController {
 		ServerResponse<String> response= iMessageService.insertMessage(message);
 		if(response.isSuccess()){
 			message.setMessageId(response.getData());
-			simpMessagingTemplate.convertAndSendToUser(receiverId,"/simple_send", message);
-			simpMessagingTemplate.convertAndSendToUser(senderId,"/simple_send", MessageStatusEnum.success.getCode());
+			simpMessagingTemplate.convertAndSendToUser(receiverId,"/simple_receive", message);
+			simpMessagingTemplate.convertAndSendToUser(senderId,"/simple_receive", MessageStatusEnum.success.getCode());
 		}else{
-			simpMessagingTemplate.convertAndSendToUser(senderId,"/message/simple_send", MessageStatusEnum.error.getCode());
+			simpMessagingTemplate.convertAndSendToUser(senderId,"/simple_receive", MessageStatusEnum.error.getCode());
 		}
     }
+	
 	
 	@MessageMapping("/back_server")  
 	public void server(MessageVo message) throws Exception { 
@@ -81,7 +82,7 @@ public class MessageController {
 		if(response.isSuccess()){
 			List<Friends> friends=response.getData();
 			for(Friends friend:friends){
-				simpMessagingTemplate.convertAndSendToUser(friend.getFriendId(),"/simple_send", "你的好友"+friend.getFriendId()+"上线");
+				simpMessagingTemplate.convertAndSendToUser(friend.getFriendId(),"/simple_receive", "你的好友"+friend.getFriendId()+"上线");
 				
 			}
 		}
