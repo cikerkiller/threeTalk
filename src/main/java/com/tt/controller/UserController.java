@@ -88,6 +88,22 @@ public class UserController {
 	}
 	
 	/**
+	 * 获取用户信息
+	 * @param session
+	 * @param username
+	 * @return
+	 */
+	@RequestMapping(value = "get_userinfo_username", method = RequestMethod.GET)
+	@ResponseBody
+	public ServerResponse<User> getUserInfoByUsername(HttpSession session,String username) {
+		User user=(User)TalkCache.userSession.get(username);
+		if(user==null){
+			return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
+		}
+		return ServerResponse.createBySuccess(user);
+	}
+	
+	/**
 	 * 退出
 	 * @param session
 	 * @return

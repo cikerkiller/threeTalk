@@ -58,9 +58,9 @@
  	
 	function queryUserInfo(){
 		$.ajax({
-			url:"/threeTalk/user/get_userinfo",
+			url:"/threeTalk/user/get_userinfo_username",
 			type:"GET",
-			data:{},
+			data:{"username":username},
 			success:function(data){
 				var status=data.status;
 				if(status==10){
@@ -92,7 +92,7 @@
 	}
 	
 	function subscribeMsg(){
-		stomp.subscribe('/user/' + username + '/simple_send', function(message){  
+		stomp.subscribe('/user/' + username + '/simple_receive', function(message){  
 			var body=message.body;
 			body=eval("("+body+")")
 			if(body!=2){
