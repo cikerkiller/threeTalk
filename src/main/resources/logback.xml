@@ -11,11 +11,11 @@
     </appender>
 
     <appender name="tt" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>d:/ttlog/tt.log</File>
-       <!--  <File>/developer/apache-tomcat-7.0.73/logs/tt.log</File> -->
+       <!-- <File>d:/ttlog/tt.log</File>-->
+        <File>/developer/apache-tomcat-7.0.73/logs/threeTalk/talk.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- <fileNamePattern>/developer/apache-tomcat-7.0.73/logs/tt.log.%d{yyyy-MM-dd}.gz</fileNamePattern> -->
-            <fileNamePattern>d:/ttlog/tt.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <fileNamePattern>/developer/apache-tomcat-7.0.73/logs/threeTalk/talk.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
             <append>true</append>
             <maxHistory>10</maxHistory>
         </rollingPolicy>
@@ -27,10 +27,10 @@
 
     <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!--<File>d:/ttlog/error.log</File>-->
-        <File>d:/ttlog/error.log</File>
+        <File>/developer/apache-tomcat-7.0.73/logs/threeTalk/error.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-           <!--  <fileNamePattern>/devsoft/apache-tomcat-7.0.73/logs/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern> -->
-            <fileNamePattern>d:/ttlog/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <fileNamePattern>/developer/apache-tomcat-7.0.73/logs/threeTalk/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern> 
+            <!--<fileNamePattern>d:/ttlog/error.log.%d{yyyy-MM-dd}.gz</fileNamePattern>-->
             <append>true</append>
             <maxHistory>10</maxHistory>
         </rollingPolicy>
@@ -51,7 +51,7 @@
 
 
 
-    <!-- geelynote mybatis log 日志 -->
+    <!-- mybatis log 日志 -->
 
     <logger name="com.tt.dao" level="DEBUG"/>
 

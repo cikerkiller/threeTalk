@@ -27,7 +27,7 @@
  <script type="text/javascript">
  	var username="";
  	var userId="";
- 	var url='http://'+window.location.host+'/threeTalk/marcopilo';
+ 	var url='http://'+window.location.host+'/marcopilo';
  	var stomp =null;
 	$(function(){
 		queryUserInfo();
@@ -58,9 +58,8 @@
  	
 	function queryUserInfo(){
 		$.ajax({
-			url:"/threeTalk/user/get_userinfo_username",
+			url:"/user/get_userinfo",
 			type:"GET",
-			data:{"username":username},
 			success:function(data){
 				var status=data.status;
 				if(status==10){
@@ -106,7 +105,7 @@
 	
  
  	function toLogin(){
- 		window.loaction.href="./login.jsp";
+ 		window.location.href="./login.jsp";
  	}
  </script>
 <body>

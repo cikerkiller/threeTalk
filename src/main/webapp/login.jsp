@@ -20,7 +20,7 @@
 			}
 			
 			$.ajax({
-				url:"/threeTalk/user/login.do",
+				url:"/user/login.do",
 				type:"POST",
 				data:{"username":username,"password":password},
 				success:function(msg){
